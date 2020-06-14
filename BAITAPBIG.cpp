@@ -29,16 +29,7 @@ void xuat(ST *a, int n){
     printf("\n   %-30s%-30s%d ", (a+i)->name, (a+i)->province, (a+i)->year);
    }
 }
-void thongke(ST *a, int n){
-	int dem=0,b=0,i;
-	for(i=0; i<n;i++){
-			if(strcmp((a+i)->province,(a+i+1)->province)==0){
-			++dem;
-        }
-        printf("\ntinh %s co %d nhan vien",(a+i)->province,dem);
-}
-}
- 
+
 
 void sapxep(ST *a, int n){
 	system("cls");
@@ -85,11 +76,6 @@ void luufile(ST *a, int n){
 int main(){
 	int nhapso,n;
 	employee_st *a;
-	struct employeelist{
-		char nv1[20];
-		char nv2[20];
-		char nv3[20];
-	};
 	a=(struct employee_st*) malloc(n*sizeof(struct employee_st));
 	bool DaNhap = false;
 		printf("\nNhap so luong nhan vien:");
@@ -119,7 +105,6 @@ int main(){
 			    	sapxep(a,n);
 			    	system("cls");
 			    	xuat(a,n);
-			    	thongke(a,n);
 				}
 				else{
 					printf("\nHay nhap danh sach nhan vien truoc...");
