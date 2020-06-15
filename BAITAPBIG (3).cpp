@@ -67,7 +67,6 @@ void luufile(ST *a, int n){
 	system("cls");
     FILE * fp;
     fp = fopen ("employee.dat","ab");
-    fwrite(&a,sizeof(struct employee_st),1,fp);
     fprintf(fp, "\n%-20s%-20s%-20s", "Ho Ten", "Tinh", "Nam sinh");
     for(int i = 0;i < n;i++){
         fprintf(fp,"\n%-20s%-20s%-20d", (a+i)->name,(a+i)->province,(a+i)->year);
