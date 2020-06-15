@@ -1,2 +1,156 @@
 # BTBIG
-Tên thành viên trong nhóm: Đỗ Thành Chiến (nhóm trưởng), Cao Lâm Bảo Khanh, Trương Được.
+#include<stdio.h>
+#include<conio.h>
+#include<stdlib.h>
+#include<string.h>
+
+
+typedef struct employee_st{
+	char name[30];
+	char province[30];
+	int year;
+}ST;
+
+//khai báo kiểu struct và khởi tạo một kiểu dữ liệu mới có tên gọi là ST.
+
+void nhap (ST *a, int &n){                       //khởi tạo hàm nhập
+	system("cls");                                //xóa màng hình
+	for (int i=0; i<n; i++){                      //vòng lặp để lặp lại sô lượng nhân viên cần nhập trong đó n là số lượng nhân viên.   
+	printf("\nNhap ten cua nhan vien :");         //xuất ra màng hình(nhập số lượng sinh viên).
+	fflush(stdin);                               //xóa bộ nhớ đệm
+  gets((a+i)->name);                           //nhập chuỗi kí tự ( nhập tên nhân viên). 
+	printf("\nNhap tinh :");                     //xuất ra màng hình(nhập tỉnh).
+	fflush(stdin);                               //xóa bộ nhớ đệm
+  gets((a+i)->province);                       //nhập chuổi kí tự (nhập tỉnh).
+	printf("\nNhap nam sinh :");                 //xuất ra màng hinh (nhập năm sinh).
+	scanf("%d",&(a+i)->year);                    //nhâp năm sinh
+    }
+}
+
+void xuat(ST *a, int n){                       // khởi tạo hàm xuất 
+	system("cls");                               //xóa màng hình
+	printf("\n|  NAME                          PROVINCE                      YEAR  |");      //xuất ra màng hình(name  province year).    
+	for (int i=0; i<n; i++){                           //vòng lặp xuất ra màng 
+    printf("\n   %-30s%-30s%d ", (a+i)->name, (a+i)->province, (a+i)->year);  //xuất ra màng hình sử dụng con trỏ trỏ tới các 
+   }
+}
+void sapxep(ST *a, int n){
+	system("cls");
+	for(int i=0; i<n-1; i++){
+		for(int j=i+1; j<n; j++){
+			if(strcmp((a+i)->province,(a+j)->province)<1){
+				ST k=*(a+i);
+				*(a+i)=*(a+j);
+				*(a+j)=k;
+			}
+		}
+	}
+}
+int timkiem(ST *a, int n){
+	system("cls");
+	char d[20];
+	int dem=0,b=0;
+	printf("\nnhap tinh nhan vien can tim kiem:");
+	fflush(stdin);
+	gets(d);
+	for(int i=0; i<n; i++){
+		if(strcmp(d,(a+i)->province)==0){
+			dem++;
+			b++;
+	    }
+    }
+    if(b++){
+        printf("\ntinh %s co %d nhan vien",d,dem);
+    }
+    else{
+    	printf("\nkhong co tinh nay...");
+	}
+}
+void luufile(ST *a, int n){
+	system("cls");
+    FILE * fp;
+    fp = fopen ("employee.dat","ab");
+    fprintf(fp, "\n%-20s%-20s%-20s", "Ho Ten", "Tinh", "Nam sinh");
+    for(int i = 0;i < n;i++){
+        fprintf(fp,"\n%-20s%-20s%-20d", (a+i)->name,(a+i)->province,(a+i)->year);
+    }
+    fclose (fp);
+}
+int main(){
+	int nhapso,n;
+	employee_st *a;
+	a=(struct employee_st*) malloc(n*sizeof(struct employee_st));
+	bool DaNhap = false;
+		printf("\nNhap so luong nhan vien:");
+		scanf("%d",&n);
+	while(true){
+		system("cls");
+		printf("\n  ____________________________________________________  ");
+		printf("\n |________________________MENU________________________| ");
+		printf("\n |____________1.Nhap du lieu tung nhan vien___________| ");
+		printf("\n |_____2.sap xep thong ke cac nhan vien theo tinh_____| ");
+		printf("\n |_____________3.tim nhan vien theo tinh______________| ");
+		printf("\n |_______4.ghi vao tap tin nhi phan employee.dat______| ");
+		printf("\n |______________________5.EXIT________________________| ");
+		scanf("%d",&nhapso);
+		switch(nhapso){
+			case 1:
+				printf("\nBan da con nhap du lieu tung nhan vien...");
+				nhap(a,n);
+				printf("\nBan da nhap thanh cong...");
+				DaNhap = true;
+				printf("\nBam phim bat ky de tiep tuc...");
+				getch();
+				break;
+			case 2:
+			    if(DaNhap){
+			    	printf("\nBan da chon sap xep nhan vien theo tinh...");
+			    	sapxep(a,n);
+			    	system("cls");
+			    	xuat(a,n);
+				}
+				else{
+					printf("\nHay nhap danh sach nhan vien truoc...");
+				}
+				printf("\nBam phim bat ky de tiep tuc...");
+				getch();
+				break;
+		
+		    case 3:
+		    	if(DaNhap){
+		    		printf("\nBan da chon tim nhan vien theo tinh...");
+		    		timkiem(a,n);
+				}
+				else{
+					printf("\nHay nhap danh sach nhan vien truoc...");
+				}
+				printf("\nBam phim bat ky de tiep tuc...");
+				getch();
+				break;
+			case 4:
+			    if(DaNhap){
+			    	printf("\nBan da chon ghi vao tep nhi phan employee.dat...");
+			    	luufile(a, n);
+				}
+				else{
+					printf("\nHay nhap danh sach nhan vien truoc...");
+				}
+				printf("\nGhi vao file employee.dat thanh cong...");
+				printf("\nBam phim bat ky de tiep tuc...");
+				getch();
+				break;
+					
+			case 5:
+				system("cls");
+			    printf("\nBan da chon thoat chuong trinh...");
+			    getch();
+			    return 0;
+			default:
+			    printf("\nKhong co chuc nang nay...");
+				printf("\nBam phim bat ky de tiep tuc...");
+				getch();
+				break;	
+	    }
+    }
+    free(a);
+}
