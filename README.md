@@ -34,11 +34,11 @@ void xuat(ST *a, int n){                       // khởi tạo hàm xuất
     printf("\n   %-30s%-30s%d ", (a+i)->name, (a+i)->province, (a+i)->year);  //xuất ra màng hình sử dụng con trỏ trỏ tới các 
    }
 }
-void sapxep(ST *a, int n){
-	system("cls");
-	for(int i=0; i<n-1; i++){
-		for(int j=i+1; j<n; j++){
-			if(strcmp((a+i)->province,(a+j)->province)<1){
+void sapxep(ST *a, int n){                      
+	system("cls");                          // xóa màng hình 
+	for(int i=0; i<n-1; i++){             
+		for(int j=i+1; j<n; j++){       
+			if(strcmp((a+i)->province,(a+j)->province)<1){             //sắp xếp theo thứ tự z->a
 				ST k=*(a+i);
 				*(a+i)=*(a+j);
 				*(a+j)=k;
@@ -52,15 +52,15 @@ int timkiem(ST *a, int n){
 	int dem=0,b=0;
 	printf("\nnhap tinh nhan vien can tim kiem:");
 	fflush(stdin);
-	gets(d);
+	gets(d);                        //nhập tỉnh cần tìm kiếm 
 	for(int i=0; i<n; i++){
-		if(strcmp(d,(a+i)->province)==0){
-			dem++;
-			b++;
+		if(strcmp(d,(a+i)->province)==0){                //so sánh giá trị nhâp bằng giá trị đã cho có bằng nhau không  
+			dem++;                                   //bằng nhau thì dem tăng lên
+			b++;                   // dùng b để in ra tỉnh này có nhân viên hay không và nếu có thì số nhân viên bằng dem++
 	    }
     }
     if(b++){
-        printf("\ntinh %s co %d nhan vien",d,dem);
+        printf("\ntinh %s co %d nhan vien",d,dem);                
     }
     else{
     	printf("\nkhong co tinh nay...");
@@ -68,22 +68,22 @@ int timkiem(ST *a, int n){
 }
 void luufile(ST *a, int n){
 	system("cls");
-    FILE * fp;
-    fp = fopen ("employee.dat","ab");
-    fprintf(fp, "\n%-20s%-20s%-20s", "Ho Ten", "Tinh", "Nam sinh");
+    FILE * fp;               // tạo file bằng kiểu con trỏ FILE
+    fp = fopen ("employee.dat","ab");  //mở file
+    fprintf(fp, "\n%-20s%-20s%-20s", "Ho Ten", "Tinh", "Nam sinh"); // ghi vào file ho ten , tinh , năm sinh
     for(int i = 0;i < n;i++){
-        fprintf(fp,"\n%-20s%-20s%-20d", (a+i)->name,(a+i)->province,(a+i)->year);
+        fprintf(fp,"\n%-20s%-20s%-20d", (a+i)->name,(a+i)->province,(a+i)->year); // ghi vào file
     }
-    fclose (fp);
+    fclose (fp); // đóng file
 }
 int main(){
 	int nhapso,n;
 	employee_st *a;
-	a=(struct employee_st*) malloc(n*sizeof(struct employee_st));
-	bool DaNhap = false;
+	a=(struct employee_st*) malloc(n*sizeof(struct employee_st));  // cấp bộ nhớ động có con trỏ a
+	bool DaNhap = false;                   //bool là trả về đúng sai , cho DaNhap là sai.
 		printf("\nNhap so luong nhan vien:");
 		scanf("%d",&n);
-	while(true){
+	while(true){                     //nếu DaNhap đúng thì nó sẻ in ra menu
 		system("cls");
 		printf("\n  ____________________________________________________  ");
 		printf("\n |________________________MENU________________________| ");
@@ -96,20 +96,21 @@ int main(){
 		switch(nhapso){
 			case 1:
 				printf("\nBan da con nhap du lieu tung nhan vien...");
-				nhap(a,n);
+				nhap(a,n);                            
 				printf("\nBan da nhap thanh cong...");
-				DaNhap = true;
+				DaNhap = true;              
+//nếu ta nhập dữ liệu nhân viên thì nó sẻ có giá trị là đúng ta có thể thực hiện tiếp các lệnh sau,nếu chưa nhập dữ liệu thì ta không thể thự hiện các lệnh còn lại.
 				printf("\nBam phim bat ky de tiep tuc...");
 				getch();
 				break;
 			case 2:
-			    if(DaNhap){
+			    if(DaNhap){                 //nếu danhap đúng thì nó sẻ in dữ liệu ra màng hình
 			    	printf("\nBan da chon sap xep nhan vien theo tinh...");
 			    	sapxep(a,n);
 			    	system("cls");
 			    	xuat(a,n);
 				}
-				else{
+				else{                 //nếu danhap sai thì nó sẻ yêu cần bạn nhập dữ liệu.
 					printf("\nHay nhap danh sach nhan vien truoc...");
 				}
 				printf("\nBam phim bat ky de tiep tuc...");
@@ -117,22 +118,22 @@ int main(){
 				break;
 		
 		    case 3:
-		    	if(DaNhap){
+		    	if(DaNhap){     //nếu danhap đúng thì nó sẻ tìm kiếm dữ liệu trong hàm nhập và in nó ra màng hình.
 		    		printf("\nBan da chon tim nhan vien theo tinh...");
 		    		timkiem(a,n);
 				}
-				else{
+				else{            / //nếu danhap sai thì nó sẻ yêu cần bạn nhập dữ liệu.
 					printf("\nHay nhap danh sach nhan vien truoc...");
 				}
 				printf("\nBam phim bat ky de tiep tuc...");
 				getch();
 				break;
 			case 4:
-			    if(DaNhap){
+			    if(DaNhap){   //nếu danhap đúng thì nó sẻ lưu vào file
 			    	printf("\nBan da chon ghi vao tep nhi phan employee.dat...");
 			    	luufile(a, n);
 				}
-				else{
+				else{    //nếu danhap sai thì nó sẻ yêu cần bạn nhập dữ liệu.
 					printf("\nHay nhap danh sach nhan vien truoc...");
 				}
 				printf("\nGhi vao file employee.dat thanh cong...");
@@ -145,12 +146,12 @@ int main(){
 			    printf("\nBan da chon thoat chuong trinh...");
 			    getch();
 			    return 0;
-			default:
+			default:          nếu bạn nhập giá trị khác ,1,2,3,4,5 thì chương trình yêu cầu bạn nhập lại
 			    printf("\nKhong co chuc nang nay...");
 				printf("\nBam phim bat ky de tiep tuc...");
 				getch();
 				break;	
 	    }
     }
-    free(a);
+    free(a);   //giải phong bộ nhớ 
 }
