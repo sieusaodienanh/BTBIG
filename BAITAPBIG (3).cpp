@@ -43,6 +43,21 @@ void sapxep(ST *a, int n){
 		}
 	}
 }
+void thongke(ST *a, int n){ 
+	for(int i=0; i<n-1;i++){
+		int dem=1; 
+		for(int j=i+1;j<n;j++){
+			if((strcmp(a+i)->province,(a+j)->province)==0){
+				n--; 
+				dem++; 
+			} 
+			if((strcmp(a+i)->province,(a+j)->province)!=0){
+				dem=dem; 
+			}
+		}
+		printf("\ntinh %s co %d tinh",(a+i)->province);
+	}
+}
 int timkiem(ST *a, int n){
 	system("cls");
 	char d[20];
@@ -62,6 +77,7 @@ int timkiem(ST *a, int n){
     else{
     	printf("\nkhong co tinh nay...");
 	}
+	return 0;
 }
 void luufile(ST *a, int n){
 	system("cls");
@@ -105,6 +121,7 @@ int main(){
 			    	sapxep(a,n);
 			    	system("cls");
 			    	xuat(a,n);
+				thongke(a,n);
 				}
 				else{
 					printf("\nHay nhap danh sach nhan vien truoc...");
