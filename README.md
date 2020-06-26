@@ -50,7 +50,22 @@ void xuat(ST *a, int n){
 		}
 	}
     }
-    int timkiem(ST *a, int n){
+    void thongke(ST *a, int n){ 
+	for(int i=0; i<n-1;i++){
+		int dem=1; 
+		for(int j=i+1;j<n;j++){
+			if((strcmp(a+i)->province,(a+j)->province)==0){    // so sánh tỉnh vd: so sánh 2 tỉnh nếu giống nhau thì dem=dem+1 hoặc dem++;. 
+				n--;                                        // nếu giông nhau thì giả đi 1 để tranh việc xuất ra màng hình bị lặp
+				dem++; 
+			} 
+			if((strcmp(a+i)->province,(a+j)->province)!=0){   // so sánh tỉnh vd: so sánh 2 tỉnh nếu khác nhau thì dem=1.
+				dem=1; 
+			}
+		} 
+		printf("\ntinh %s co %d nhan vien",(a+i)->province);     // in nhân viên theo tỉnh
+	} 
+    } 
+       int timkiem(ST *a, int n){
 
 	system("cls");
 	char d[20];
@@ -70,6 +85,7 @@ void xuat(ST *a, int n){
     else{
     	printf("\nkhong co tinh nay...");
 	}
+	return 0;
     }
     void luufile(ST *a, int n){
 
